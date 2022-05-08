@@ -78,7 +78,7 @@ export const App = () => {
           <Router>
             <Navbar user={user} setUser={setUser}/>
             <Routes>
-              <Route path="/" element={<Home genres={genres} getBookOnClick={getBookOnClick} setGenre={setGenre}/>} />
+              <Route path="/" element={<Home genres={genres} user={user} getBookOnClick={getBookOnClick} setGenre={setGenre}/>} />
               <Route path="/register" element={<Register/>} />
               <Route path="/book/:isbn" element={<BookPanel 
                   book={book} 

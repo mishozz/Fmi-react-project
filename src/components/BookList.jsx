@@ -13,7 +13,7 @@ const BookList = (props) => {
             </style>
             <MDBCardGroup >
                     { props.books.map((book) => 
-                             <Book key={book._id} book={book} showBookDescription={props.showBookDescription} getBookOnClick={props.getBookOnClick} />                    
+                             <Book key={book._id} {...props} book={book} />                    
                         )}
             </MDBCardGroup>
         </div>

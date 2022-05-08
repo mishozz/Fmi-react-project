@@ -7,7 +7,7 @@ import useBookSearch from '../hooks/useBookSearch'
 import CircularProgress from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
 
-const Genre = ({genreName, getBookOnClick}) => {
+const Genre = ({genreName, getBookOnClick, user}) => {
   const [isHovering, setIsHovering] = useState(false);
 
   const [open, setOpen] = useState(false);
@@ -110,7 +110,7 @@ const Genre = ({genreName, getBookOnClick}) => {
 
           </div>
         </div>
-          <BookList books={homePageBooksInfo.genreBooks} showBookDescription={false} getBookOnClick={getBookOnClick}/>
+          <BookList user={user} books={homePageBooksInfo.genreBooks} showBookDescription={false} getBookOnClick={getBookOnClick}/>
         </MDBContainer>
       )}
     </div>

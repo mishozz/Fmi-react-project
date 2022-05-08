@@ -1,7 +1,7 @@
 import GenreList from '../components/GenreList'
 import GenreFilter from '../components/GenreFilter'
 
-const Home = ({genres, getBookOnClick, setGenre }) => {
+const Home = ({genres, getBookOnClick, setGenre, user}) => {
 
     return (
         <>
@@ -24,7 +24,7 @@ const Home = ({genres, getBookOnClick, setGenre }) => {
                 <h1>Books</h1>
                 <GenreFilter genres={genres} setGenre={setGenre}/>
             </div>
-            <GenreList  genres={genres} getBookOnClick={getBookOnClick} />
+            <GenreList user={user}  genres={genres} getBookOnClick={getBookOnClick} />
         </>
     )
 }

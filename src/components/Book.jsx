@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from 'react-router-dom'
 import { MDBCard, MDBCardImage, MDBCardBody, MDBCardText, MDBCardTitle,MDBCardFooter} from 'mdb-react-ui-kit'
 import Collapse from '@material-ui/core/Collapse'
@@ -6,6 +6,7 @@ import ExpandMore from '@mui/icons-material/ExpandMore';
 import styled from "styled-components";
 import Rating from '@mui/material/Rating';
 import { ExpandLess } from "@material-ui/icons";
+import librarySdk from "../services/librarySdk";
 
 const Container = styled.div`
   display: flex;
@@ -14,6 +15,7 @@ const Container = styled.div`
 
 
 const Book = (props) => {
+    const [rating, setRating] = useState({total:0, voters:[]});
     const [expanded, setExpanded] = useState(false);
 
     const handleExpandClick = () => {
@@ -27,6 +29,38 @@ const Book = (props) => {
         navigate(`/book/${props.book.isbn}`);
     }
 
+    const rateBook = async (_event, newValue) => {
+        try {
+            if (newValue === null) {
+                newValue = rating.total
+            }
+            const updatedRating = await librarySdk.updateRating(rating._id, newValue);
+            setRating(updatedRating);
+        } catch(err) {
+            console.log(err)
+        }
+    }
+
+    const canVote = () => {
+        if(!props.user) return false;
+        if(rating.voters.includes(props.user.email)) return false;
+        
+        return true;
+    }
+
+    useEffect(() => {
+        const fetchRating = async () => {
+            try {
+                const fetchedRating = await librarySdk.fetchRatingByBookIsbn(props.book.isbn);
+                setRating(fetchedRating)
+            } catch(err) {
+                console.log(err)
+            } 
+        }
+       
+        fetchRating();
+    }, [])
+
     return (
         <Container>
              <style type="text/css">
@@ -39,6 +73,9 @@ const Book = (props) => {
                     .card {
                         margin: 20px;
                         width: 16rem;
+                    }
+
+                    .card-container {
                         cursor: pointer;
                     }
 
@@ -72,7 +109,8 @@ const Book = (props) => {
             `}
             </style>
 
-            <MDBCard className='mb-3' onClick={handleGoToBookClick}>
+            <MDBCard className='mb-3' >
+                <div className="card-container" onClick={handleGoToBookClick}>
                 <MDBCardImage
                     src={props.book.imageSource}
                     alt='...'
@@ -107,12 +145,18 @@ const Book = (props) => {
                     </div> 
                     }
                 </MDBCardBody>
+                </div>
                 <MDBCardFooter>
-                    <Rating
-                        name="read-only"
-                        value={props.book.rating}
-                        readOnly
-                    />                   
+                    {canVote() ? (
+                     <Rating
+                        name="half-rating"
+                        value={rating.total}
+                        onChange={(_event, newValue) => {
+                            rateBook(_event, newValue);
+                          }}
+                    />) :(
+                    <Rating name="half-rating" value={rating.total} readOnly />
+                    )}                
                 </MDBCardFooter>
             </MDBCard>
         </Container>
