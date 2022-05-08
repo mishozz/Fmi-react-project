@@ -1,6 +1,6 @@
 import {  CircularProgress } from '@material-ui/core';
 import React, { useState } from 'react'
-import librarySdk from '../../services/librarySdk'
+import genreService from '../../services/genreService';
 import GenreForm from '../genres/GenreForm';
 
 
@@ -11,7 +11,7 @@ const AddGenrePanel = ({genres, setGenres}) => {
     const submitForm = async (genre) => {
         setCreateInProgress(true);
         try {
-            const newGenre = await librarySdk.createGenre(genre)
+            const newGenre = await genreService.createGenre(genre)
             setGenres([...genres, newGenre])
             setGenreCreated(true)
             setTimeout(()=> {

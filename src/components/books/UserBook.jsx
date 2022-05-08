@@ -1,9 +1,10 @@
 import {useState} from 'react'
 import { Button } from '@mui/material'
 import Book from './Book'
-import librarySdk from '../../services/librarySdk'
 import { useNavigate } from 'react-router'
 import CircularProgress from '@mui/material/CircularProgress';
+import booksService from '../../services/booksService'
+import userService from '../../services/userService'
 
 const UserBook = (props) => {
     const navigate = useNavigate();
@@ -13,10 +14,10 @@ const UserBook = (props) => {
         setLoading(true)
         try {
             const isbn = props.book.isbn;
-            await librarySdk.handleBookAction(action, isbn);
+            await booksService.handleBookAction(action, isbn);
             const updatedBooks = props.books.filter(curBook => curBook.isbn !== isbn)
             props.setBooks(updatedBooks)
-            const user = await librarySdk.getUser(props.user.email)
+            const user = await userService.getUser(props.user.email)
             props.setUser(user)
         } catch (e) {
             console.log(e)

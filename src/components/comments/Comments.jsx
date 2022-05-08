@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import CommentForm from "./CommentForm";
 import Comment from "./Comment";
-import librarySdk from "../../services/librarySdk";
+import commentsService from "../../services/commentsService";
 
 const Comments = ({ user, currentUserId, bookIsbn }) => {
   const [backendComments, setBackendComments] = useState([]);
@@ -18,7 +18,7 @@ const Comments = ({ user, currentUserId, bookIsbn }) => {
   )};
   const addComment = async (text, parentId, referenceBookIsbn) => {
     try {
-      const res = await librarySdk.addComment(text, parentId, referenceBookIsbn);
+      const res = await commentsService.addComment(text, parentId, referenceBookIsbn);
       setBackendComments([res, ...backendComments]);
       setActiveComment(null);
     } catch (e) {
@@ -28,7 +28,7 @@ const Comments = ({ user, currentUserId, bookIsbn }) => {
 
   const updateComment =  async (text, commentId) => {
     try {
-      await librarySdk.editComment(commentId, text)
+      await commentsService.editComment(commentId, text)
 
       const updatedBackendComments = backendComments.map((backendComment) => {
         if (backendComment._id === commentId) {
@@ -46,7 +46,7 @@ const Comments = ({ user, currentUserId, bookIsbn }) => {
 
     if (window.confirm("Are you sure you want to remove comment?")) {
       try {
-        await librarySdk.deleteComment(commentId);
+        await commentsService.deleteComment(commentId);
   
         const updatedBackendComments = backendComments.filter(
           (backendComment) => backendComment._id !== commentId
@@ -61,7 +61,7 @@ const Comments = ({ user, currentUserId, bookIsbn }) => {
   useEffect(() => {
     const fetchComments = async () => {
       try {
-        const res = await librarySdk.getComments();
+        const res = await commentsService.getComments();
         const filteredComments = res.comments.filter(comment => comment.referenceBookIsbn === bookIsbn);
         setBackendComments(filteredComments);
       } catch (e) {

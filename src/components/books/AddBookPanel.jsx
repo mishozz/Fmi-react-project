@@ -1,6 +1,6 @@
 import {  CircularProgress } from '@material-ui/core';
 import React, { useState } from 'react'
-import librarySdk from '../../services/librarySdk'
+import booksService from '../../services/booksService';
 import BookForm from '../books/BookForm';
 
 
@@ -19,7 +19,7 @@ const AddBookPanel = ({genres}) => {
     const submitForm = async (book) => {
         setCreateInProgress(true);
         try {
-            await librarySdk.createBook(book)
+            await booksService.createBook(book)
             setBookCreated(true)
             setTimeout(()=> {
                 setBookCreated(false);

@@ -3,13 +3,14 @@ import {useEffect,useState} from 'react'
 import { Button } from '@mui/material'
 import { MDBContainer } from 'mdb-react-ui-kit'
 import Book from '../components/books/Book'
-import librarySdk from '../services/librarySdk'
 import NotFound from '../components/NotFound'
 import Comments from '../components/comments/Comments'
 import EditBookBackdrop from '../components/books/EditBookBackdrop'
 import { CircularProgress } from '@material-ui/core'
 import ExpandMore from '@mui/icons-material/ExpandMore';
 import { ExpandLess } from "@material-ui/icons";
+import booksService from '../services/booksService'
+import userService from '../services/userService'
 
 const BookPanel = (props) => {
     const navigate = useNavigate();
@@ -43,7 +44,7 @@ const BookPanel = (props) => {
         }
         setLoading(true);
         try {
-            await librarySdk.handleBookAction(action, isbn);
+            await booksService.handleBookAction(action, isbn);
             setIsBookTaken(!isBookTaken);
             if(!isBookTaken) {
                 props.setUserBooks(prevBooks => [...prevBooks, props.book])
@@ -52,7 +53,7 @@ const BookPanel = (props) => {
                     prevBooks.filter(book => book.isbn !== isbn)
                 ))
             }
-            const user = await librarySdk.getUser(props.user.email)
+            const user = await userService.getUser(props.user.email)
             props.setUser(user)
         } catch (e) {
             console.log(e)
@@ -79,7 +80,7 @@ const BookPanel = (props) => {
     useEffect(() => {
         const fetchBook = async () => {
             try {
-                const book = await librarySdk.fetchBook(isbn);
+                const book = await booksService.fetchBook(isbn);
                 props.setBook(book);
             } catch (e) {
                 setNotFound(true);

@@ -6,7 +6,7 @@ import ExpandMore from '@mui/icons-material/ExpandMore';
 import styled from "styled-components";
 import Rating from '@mui/material/Rating';
 import { ExpandLess } from "@material-ui/icons";
-import librarySdk from "../../services/librarySdk";
+import ratingService from "../../services/ratingService";
 
 const Container = styled.div`
   display: flex;
@@ -34,7 +34,7 @@ const Book = (props) => {
             if (newValue === null) {
                 newValue = rating.total
             }
-            const updatedRating = await librarySdk.updateRating(rating._id, newValue);
+            const updatedRating = await ratingService.updateRating(rating._id, newValue);
             setRating(updatedRating);
         } catch(err) {
             console.log(err)
@@ -51,7 +51,7 @@ const Book = (props) => {
     useEffect(() => {
         const fetchRating = async () => {
             try {
-                const fetchedRating = await librarySdk.fetchRatingByBookIsbn(props.book.isbn);
+                const fetchedRating = await ratingService.fetchRatingByBookIsbn(props.book.isbn);
                 setRating(fetchedRating)
             } catch(err) {
                 console.log(err)

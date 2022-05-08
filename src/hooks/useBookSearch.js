@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import axios from 'axios'
-import librarySDK from '../services/librarySdk'
+import booksService from '../services/booksService'
 
 export default function useBookSearch(genre, pageNumber, limit) {
   const [loading, setLoading] = useState(true)
@@ -17,7 +17,7 @@ export default function useBookSearch(genre, pageNumber, limit) {
 
       let cancel;
       try {
-        const res = await librarySDK.fetchBooksByGenre(genre, pageNumber, limit,cancel)
+        const res = await booksService.fetchBooksByGenre(genre, pageNumber, limit,cancel)
 
         setBooks(prevBooks => [...new Set([...prevBooks, ...res.books])])
         setHasMore(res.totalBooks > pageNumber*limit)

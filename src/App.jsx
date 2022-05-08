@@ -2,12 +2,13 @@ import React, {useState, useEffect} from 'react'
 import Home from './pages/Home'
 import Navbar from './components/navbar/Navbar'
 import Register from './pages/Register'
-import librarySdk from './services/librarySdk'
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import BookPanel from './pages/BookPanel'
 import UserBookList from './pages/UserBookList'
 import GenrePanel from './pages/GenrePanel'
 import AdminPanel from './pages/AdminPanel'
+import userService from './services/userService'
+import genreService from './services/genreService'
 
 export const App = () => {
     const [genre, setGenre] = useState([]);
@@ -26,7 +27,7 @@ export const App = () => {
 
     useEffect(() => {
         const fetchGenres = async () => {
-          const genresRes = await librarySdk.fetchGenres();
+          const genresRes = await genreService.fetchGenres();
           setGenres(genresRes.genres)
         };
 
@@ -34,7 +35,7 @@ export const App = () => {
           const currentUser = localStorage.getItem('user')
           if(currentUser === "undefined") return;
           try {
-            const res = await librarySdk.fetchUserBooks();
+            const res = await userService.fetchUserBooks();
             setUserBooks(res.takenBooks);
           } catch(e) {
             console.log(e)
@@ -57,7 +58,7 @@ export const App = () => {
       }
 
       try {
-        await librarySdk.refreshToken();
+        await userService.refreshToken();
         setTimeout(() => {
           refreshAuthToken();
         }, (900*1000) - 3000);  // 3 seconds before token expires  

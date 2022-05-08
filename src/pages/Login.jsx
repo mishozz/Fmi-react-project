@@ -11,7 +11,7 @@ import InputAdornment from '@mui/material/InputAdornment';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import IconButton from '@mui/material/IconButton';
-import librarySdk from '../services/librarySdk'
+import userService from '../services/userService';
 
 const validationSchema = yup.object({
     email: yup
@@ -46,7 +46,7 @@ const Login = ({handleToggle, setUser})=>{
         validationSchema: validationSchema,
         onSubmit: async (values) => {
           try {
-            const res = await librarySdk.login(values.email, values.password);
+            const res = await userService.login(values.email, values.password);
             
             handleToggle();   
             setUser(res.user);

@@ -2,9 +2,9 @@ import { styled, alpha } from '@mui/material/styles';
 import InputBase from '@mui/material/InputBase';
 import SearchIcon from '@mui/icons-material/Search';
 import {IconButton } from '@material-ui/core';
-import librarySdk from '../../services/librarySdk';
 import { useState } from 'react';
 import { useNavigate } from 'react-router';
+import booksService from '../../services/booksService';
 
 const Search = styled('div')(({ theme }) => ({
     position: 'relative',
@@ -52,7 +52,7 @@ const SearchBar = () => {
     const redirectToBook = async (event) => {
 
         try {
-            const book = await librarySdk.fetchBooksByTitle(searchInput);
+            const book = await booksService.fetchBooksByTitle(searchInput);
             navigate(`book/${book.isbn}`)
         } catch (e) {
             if(e.response.status === 404) {

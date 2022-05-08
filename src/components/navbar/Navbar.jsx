@@ -14,7 +14,7 @@ import NavbarDrawer from "./NavbarDrawer";
 import LoginBackdrop from '../login/LoginBackdrop'
 import MenuIcon from "@material-ui/icons/Menu";
 import SearchBar from '../navbar/SearchBar'
-import librarySdk from '../../services/librarySdk'
+import userService from "../../services/userService";
 
 const useStyles = makeStyles((theme) => ({
   navlinks: {
@@ -64,7 +64,7 @@ function Navbar({setUser, user}) {
 
   const logout = async () => {
     try {
-      await librarySdk.logout();
+      await userService.logout();
       setUser(undefined);
     } catch (e) {
       console.log(e);

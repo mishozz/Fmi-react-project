@@ -1,6 +1,5 @@
 import {  Collapse } from '@material-ui/core';
-
-import librarySdk from '../../services/librarySdk';
+import booksService from '../../services/booksService';
 import BookForm from './BookForm';
 
 
@@ -9,7 +8,7 @@ const EditBookBackdrop = ({book, openBackdrop, setBook, setEditInProgress, handl
     const submitForm = async (values) => {
         setEditInProgress(true)
         try {
-            const updatedBook =  await librarySdk.editBook(book.isbn, values.description,values.title,values.availableCopies,values.genre,values.imageSource)
+            const updatedBook =  await booksService.editBook(book.isbn, values.description,values.title,values.availableCopies,values.genre,values.imageSource)
             setBook(updatedBook);
         } catch(err) { 
             console.log(err);
