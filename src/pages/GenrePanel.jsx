@@ -1,6 +1,6 @@
 import React from 'react'
 import { useNavigate } from 'react-router'
-import Genre from './Genre';
+import Genre from '../components/genres/Genre';
 
 const GenrePanel = ({genreName, getBookOnClick}) => {
     const navigate = useNavigate();

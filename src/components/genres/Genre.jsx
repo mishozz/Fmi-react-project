@@ -1,9 +1,9 @@
 import { useState } from "react";
 import {MDBContainer} from 'mdb-react-ui-kit'
-import BookList from "./BookList";
+import BookList from "../books/BookList";
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 import GenreBackdrop from './GenreBackdrop'
-import useBookSearch from '../hooks/useBookSearch'
+import useBookSearch from '../../hooks/useBookSearch'
 import CircularProgress from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
 

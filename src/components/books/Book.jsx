@@ -6,7 +6,7 @@ import ExpandMore from '@mui/icons-material/ExpandMore';
 import styled from "styled-components";
 import Rating from '@mui/material/Rating';
 import { ExpandLess } from "@material-ui/icons";
-import librarySdk from "../services/librarySdk";
+import librarySdk from "../../services/librarySdk";
 
 const Container = styled.div`
   display: flex;

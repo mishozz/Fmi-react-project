@@ -11,10 +11,10 @@ import {
 } from "@material-ui/core";
 import { Link } from "react-router-dom";
 import NavbarDrawer from "./NavbarDrawer";
-import LoginBackdrop from './LoginBackdrop'
+import LoginBackdrop from '../login/LoginBackdrop'
 import MenuIcon from "@material-ui/icons/Menu";
-import SearchBar from './SearchBar'
-import librarySdk from '../services/librarySdk'
+import SearchBar from '../navbar/SearchBar'
+import librarySdk from '../../services/librarySdk'
 
 const useStyles = makeStyles((theme) => ({
   navlinks: {

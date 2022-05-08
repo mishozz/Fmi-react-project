@@ -1,13 +1,13 @@
 import React, {useState, useEffect} from 'react'
 import Home from './pages/Home'
-import Navbar from './components/Navbar'
-import Register from './components/Register'
+import Navbar from './components/navbar/Navbar'
+import Register from './pages/Register'
 import librarySdk from './services/librarySdk'
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import BookPanel from './components/BookPanel'
-import UserBookList from './components/UserBookList'
-import GenrePanel from './components/GenrePanel'
-import AdminPanel from './components/AdminPanel'
+import BookPanel from './pages/BookPanel'
+import UserBookList from './pages/UserBookList'
+import GenrePanel from './pages/GenrePanel'
+import AdminPanel from './pages/AdminPanel'
 
 export const App = () => {
     const [genre, setGenre] = useState([]);

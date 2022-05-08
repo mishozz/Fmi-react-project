@@ -1,5 +1,5 @@
 import { Container } from "@material-ui/core";
-import UserBook from "./UserBook"
+import UserBook from "../components/books/UserBook"
 
 const UserBookList = (props) => {
 

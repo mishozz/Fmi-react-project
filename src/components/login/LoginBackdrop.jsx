@@ -1,5 +1,5 @@
 import Backdrop from '@mui/material/Backdrop';
-import Login from './Login'
+import Login from '../../pages/Login'
 
 export default function LoginBackdrop({open, handleToggle, setUser}) {
   return (

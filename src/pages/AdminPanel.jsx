@@ -1,7 +1,7 @@
 
 import { MDBContainer } from "mdb-react-ui-kit";
-import AddBookPanel from "./AddBookPanel";
-import AddGenrePanel from "./AddGenrePanel";
+import AddBookPanel from "../components/books/AddBookPanel";
+import AddGenrePanel from "../components/genres/AddGenrePanel";
 
 
 const AdminPanel = ({genres, setGenres}) => {

@@ -1,40 +1,32 @@
 import {  CircularProgress } from '@material-ui/core';
 import React, { useState } from 'react'
-import librarySdk from '../services/librarySdk'
-import BookForm from './BookForm';
+import librarySdk from '../../services/librarySdk'
+import GenreForm from '../genres/GenreForm';
 
 
-const initialBook = {
-    title: "Title example",
-    description: "Description example",
-    availableCopies: 1,
-    imageSource: "Img Example",
-    genre: "Genre Example"
-}
-
-const AddBookPanel = ({genres}) => {
+const AddGenrePanel = ({genres, setGenres}) => {
     const [createInProgress, setCreateInProgress] = useState(false);
-    const [bookCreated, setBookCreated] = useState(false);
+    const [genreCreated, setGenreCreated] = useState(false);
 
-    const submitForm = async (book) => {
+    const submitForm = async (genre) => {
         setCreateInProgress(true);
         try {
-            await librarySdk.createBook(book)
-            setBookCreated(true)
+            const newGenre = await librarySdk.createGenre(genre)
+            setGenres([...genres, newGenre])
+            setGenreCreated(true)
             setTimeout(()=> {
-                setBookCreated(false);
+                setGenreCreated(false);
             }, 5000)
         } catch(e) {
             console.log(e);
         }
         setCreateInProgress(false);
     }
-
     return (
-        <>  
-                <style type="text/css">
+        <>
+            <style type="text/css">
                 {`
-                    .book-created-container {
+                    .genre-created-container {
                         display: flex;
                         background-color: #18d59d;
                         border-radius: 0.5rem;
@@ -46,18 +38,18 @@ const AddBookPanel = ({genres}) => {
                 `}
                 </style>
 
-            {bookCreated && (
-                <div className="book-created-container">
-                    <h2>Book created</h2>
+            {genreCreated && (
+                <div className="genre-created-container">
+                    <h2>Genre created</h2>
                 </div>
             )}
             { createInProgress ?
                 <CircularProgress color="secondary"/>
                 :
-                <BookForm submitForm={submitForm} formSubmitText={"Create Book"} book={initialBook} genres={genres}/>
-            }
+                <GenreForm submitForm={submitForm} formSubmitText={"Create genre"} genres={genres}/>
+            } 
         </>
     )
 }
 
-export default AddBookPanel;
+export default AddGenrePanel;

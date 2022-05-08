@@ -1,5 +1,5 @@
-import GenreList from '../components/GenreList'
-import GenreFilter from '../components/GenreFilter'
+import GenreList from '../components/genres/GenreList'
+import GenreFilter from '../components/genres/GenreFilter'
 
 const Home = ({genres, getBookOnClick, setGenre, user}) => {
 

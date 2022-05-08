@@ -2,7 +2,7 @@ import {useRef} from 'react'
 import Backdrop from '@mui/material/Backdrop';
 import {MDBContainer} from 'mdb-react-ui-kit'
 import CancelIcon from '@mui/icons-material/Cancel';
-import BookList from './BookList';
+import BookList from '../books/BookList';
 import CircularProgress from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
 
