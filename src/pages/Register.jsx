@@ -1,4 +1,5 @@
 import {useState} from 'react'
+import { useNavigate } from 'react-router-dom'
 import { Grid,Paper, Avatar, TextField, Button, Typography, Link } from '@material-ui/core'
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import * as yup from 'yup';
@@ -32,6 +33,8 @@ const Register = () => {
     const handleClickShowPassword = () => setShowPassword(!showPassword);
     const handleMouseDownPassword = () => setShowPassword(!showPassword);
 
+    const navigate = useNavigate();
+
     const paperStyle={padding :20,height:'70vh',width:280, margin:"20px auto"}
     const avatarStyle={backgroundColor:'#1bbd7e'}
     const btnstyle={margin:'8px 0'}
@@ -48,9 +51,9 @@ const Register = () => {
           validationSchema.isValid()
           try {
             await userService.register(values.email ,values.password);
-            alert(JSON.stringify(values, null, 2));
+            navigate("/");
           } catch (e) {
-            alert(e)
+            console.log(e)
           }
         },
       });
